@@ -1,0 +1,20 @@
+- ops-tools
+  - couch-follow
+  - replicate-ami
+  - emr-clusters, emr-cluster-info
+  - ec2-find
+  - site-poll [node server/poll.js]
+  - micro-monitor
+  - nsq-peek
+  - nsq-send
+
+- npmepm
+  - doctor
+  - package-count
+  - image-counts
+  - image-state-counts
+
+others:
+- aqui
+- duerme
+- flon
