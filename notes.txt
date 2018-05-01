@@ -1,20 +1,34 @@
 - ops-tools
   - couch-follow
+    - cd ~/dev/ops-tools
+    - ops couch-follow -L data/ralph -i -F -p 7777 https://replicate.npmjs.com
+    - aqui get 'http://localhost:7777/history/package?name=@buzuli&limit=5'
+    - aqui get 'http://localhost:7777/history/sequence?limit=10' -D | flon
   - replicate-ami
-  - emr-clusters, emr-cluster-info
+    - ops replicate-ami -simulate us-west-2 ami-deadbeef
+    - ops replicate-ami --simulate --publish us-west-2 ami-deadbeef
+  - emr-clusters [ops emr-clusters]
+  - emr-cluster-info [ops emr-cluster-info <cluster-id>]
   - ec2-find
+    - ops ec2-find -n joel
+    - ops ec2-find -k ceej -q | flon | grep 'name =' | cut -d '"' -f 2
   - site-poll [node server/poll.js]
   - micro-monitor
   - nsq-peek
+    - docker run -it -p 4150:4150 nsqio/nsq nsqd
+    - ops nsq-peek --nsqdHost localhost:4150 --channel buzuli#ephemeral message#ephemeral
   - nsq-send
+    - ops nsq-send messages#ephemeral 'Greetings. I hope this finds you well.'
+    - ops nsq-send messages#ephemeral '{"msg": "What is happending doc?"}'
 
 - npmepm
-  - doctor
+  - doctor [epm doctor epm-data/npme03b-replicated-support259006377.tar.gz]
   - package-count
   - image-counts
   - image-state-counts
 
 others:
-- aqui
-- duerme
-- flon
+- aqui [node server/aqui.js]
+- duerme [duerme -f 500 -t 500 -T 15000 -u http://localhost:8888]
+- flon [aqui get https://registry.npmjs.com/flon | flon]
+- redmod [npx redmod]
